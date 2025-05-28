@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vector Space Weather Report Gallery</title>
+<style>
+  body { font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 0; line-height: 1.6; }
+  nav { background: #222; color: #fff; }
+  nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; }
+  nav li { margin: 0; }
+  nav a { display: block; padding: 1rem 1.5rem; color: #fff; text-decoration: none; font-size: 1.1rem; }
+  nav a:hover { background: #444; }
+  .container { max-width: 900px; margin: auto; padding: 1rem; }
+  .featured img { width: 100%; height: auto; }
+  .featured .desc { margin-top: 0.5rem; font-size: 1.1rem; }
+</style>
+</head>
+<body>
+<nav>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About the Project</a></li>
+    <li><a href="statement.html">Artist&#39;s Statement</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="#">Dev Access</a></li>
+  </ul>
+</nav>
+<div class="container">
+  <h1>Vector Space Weather Report Gallery</h1>
+  <section class="featured" id="featured"></section>
+</div>
+<script>
+const artData = [
+  {
+    title: "Aurora Over Vector Space",
+    image: "https://via.placeholder.com/800?text=Aurora+1",
+    description: "A luminous depiction of charged particles swirling above our Earth.",
+    date: "2024-06-01",
+    weatherReport: "Geomagnetic storm expected.",
+    weatherPrompt: "Write a short space weather forecast.",
+    imagePrompt: "Visualize aurora with vector art style."
+  },
+  {
+    title: "Solar Wind on the Horizon",
+    image: "https://via.placeholder.com/800?text=Solar+Wind",
+    description: "The solar wind streams past in elegant waves of color.",
+    date: "2024-06-02",
+    weatherReport: "Minor solar wind increase.",
+    weatherPrompt: "Describe the solar wind conditions.",
+    imagePrompt: "A vibrant depiction of the solar wind."
+  },
+  {
+    title: "Cosmic Radiation Patterns",
+    image: "https://via.placeholder.com/800?text=Cosmic+Radiation",
+    description: "Patterns inspired by the cosmic radiation background.",
+    date: "2024-06-03",
+    weatherReport: "Quiet space weather today.",
+    weatherPrompt: "Summarize cosmic ray activity.",
+    imagePrompt: "A minimalist take on cosmic radiation." 
+  }
+];
+
+function displayRandomFeature() {
+  const item = artData[Math.floor(Math.random() * artData.length)];
+  const div = document.getElementById('featured');
+  div.innerHTML = `<img src="${item.image}" alt="${item.title}">` +
+                  `<div class="desc"><h2>${item.title}</h2><p>${item.description}</p></div>`;
+}
+
+displayRandomFeature();
+</script>
+</body>
+</html>
