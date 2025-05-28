@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery - Vector Space Weather Report Gallery</title>
+<style>
+  body { font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 0; line-height: 1.6; }
+  nav { background: #222; color: #fff; }
+  nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; }
+  nav li { margin: 0; }
+  nav a { display: block; padding: 1rem 1.5rem; color: #fff; text-decoration: none; font-size: 1.1rem; }
+  nav a:hover { background: #444; }
+  .container { max-width: 1000px; margin: auto; padding: 1rem; }
+  #gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; max-width: 960px; margin: auto; }
+  @media (min-width: 800px) {
+    #gallery-grid { grid-template-columns: repeat(5, 1fr); }
+  }
+  .thumb { position: relative; width: 100%; padding-top: 100%; overflow: hidden; cursor: pointer; background: #eee; }
+  .thumb img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+  #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; }
+  #modal.active { display: flex; }
+  .card { background: #fff; color: #000; max-width: 90%; max-height: 90%; perspective: 1000px; position: relative; }
+  .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
+  .card.flipped .card-inner { transform: rotateY(180deg); }
+  .card-side { position: absolute; top: 0; left: 0; width: 100%; backface-visibility: hidden; padding: 1rem; box-sizing: border-box; overflow-y: auto; max-height: 90vh; }
+  .card-side img { width: 100%; height: auto; }
+  .back { transform: rotateY(180deg); }
+  .close-btn { position: absolute; top: 0.5rem; right: 0.5rem; background: #444; color: #fff; border: none; padding: 0.3rem 0.6rem; cursor: pointer; }
+</style>
+</head>
+<body>
+<nav>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About the Project</a></li>
+    <li><a href="statement.html">Artist&#39;s Statement</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="#">Dev Access</a></li>
+  </ul>
+</nav>
+<div class="container">
+  <h1>Gallery</h1>
+  <section id="gallery-grid"></section>
+</div>
+<div id="modal">
+  <div class="card" id="modal-card">
+    <button class="close-btn" onclick="closeModal()">X</button>
+    <div class="card-inner">
+      <div class="card-side front" id="modal-front"></div>
+      <div class="card-side back" id="modal-back"></div>
+    </div>
+  </div>
+</div>
+<script>
+const artData = [
+  {
+    title: "Aurora Over Vector Space",
+    image: "https://via.placeholder.com/800?text=Aurora+1",
+    description: "A luminous depiction of charged particles swirling above our Earth.",
+    date: "2024-06-01",
+    weatherReport: "Geomagnetic storm expected.",
+    weatherPrompt: "Write a short space weather forecast.",
+    imagePrompt: "Visualize aurora with vector art style."
+  },
+  {
+    title: "Solar Wind on the Horizon",
+    image: "https://via.placeholder.com/800?text=Solar+Wind",
+    description: "The solar wind streams past in elegant waves of color.",
+    date: "2024-06-02",
+    weatherReport: "Minor solar wind increase.",
+    weatherPrompt: "Describe the solar wind conditions.",
+    imagePrompt: "A vibrant depiction of the solar wind."
+  },
+  {
+    title: "Cosmic Radiation Patterns",
+    image: "https://via.placeholder.com/800?text=Cosmic+Radiation",
+    description: "Patterns inspired by the cosmic radiation background.",
+    date: "2024-06-03",
+    weatherReport: "Quiet space weather today.",
+    weatherPrompt: "Summarize cosmic ray activity.",
+    imagePrompt: "A minimalist take on cosmic radiation." 
+  }
+];
+
+function buildGallery() {
+  const grid = document.getElementById('gallery-grid');
+  artData.forEach((item, idx) => {
+    const div = document.createElement('div');
+    div.className = 'thumb';
+    div.innerHTML = `<img src="${item.image}" alt="${item.title}">`;
+    div.addEventListener('click', () => openModal(idx));
+    grid.appendChild(div);
+  });
+}
+
+function openModal(index) {
+  const data = artData[index];
+  document.getElementById('modal-front').innerHTML = `
+      <img src="${data.image}" alt="${data.title}">
+      <h2>${data.title}</h2>
+      <p>${data.date}</p>
+      <p>${data.description}</p>`;
+  document.getElementById('modal-back').innerHTML = `
+      <h3>Weather Prompt</h3>
+      <p>${data.weatherPrompt}</p>
+      <h3>Weather Report</h3>
+      <p>${data.weatherReport}</p>
+      <h3>Image Prompt</h3>
+      <p>${data.imagePrompt}</p>`;
+  document.getElementById('modal').classList.add('active');
+  document.getElementById('modal-card').classList.remove('flipped');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('active');
+}
+
+document.getElementById('modal-card').addEventListener('click', function(e) {
+  if (e.target.classList.contains('close-btn')) return;
+  this.classList.toggle('flipped');
+});
+
+buildGallery();
+</script>
+</body>
+</html>
